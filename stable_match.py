@@ -1,72 +1,48 @@
-# 30 Students (Keys 0-29) ranking all 30 Rooms (Values 0-29) in strict 0-indexed order
+# 0-indexed preference matrices for algorithm implementation
 students = {
-    0: [19, 14, 10, 26, 22, 6, 5, 12, 11, 15, 9, 25, 29, 21, 16, 27, 1, 13, 18, 2, 17, 28, 4, 24, 7, 8, 23, 0, 3, 20],
-    1: [14, 23, 15, 11, 16, 20, 17, 7, 26, 19, 9, 12, 27, 1, 29, 2, 3, 21, 6, 4, 28, 10, 13, 22, 5, 24, 0, 25, 8, 18],
-    2: [13, 14, 24, 21, 0, 15, 8, 16, 27, 29, 25, 5, 10, 17, 4, 12, 3, 28, 23, 9, 7, 1, 2, 22, 6, 18, 11, 19, 20, 26],
-    3: [28, 26, 0, 2, 13, 11, 16, 6, 18, 15, 29, 9, 3, 23, 4, 27, 25, 19, 24, 1, 10, 21, 7, 17, 22, 20, 8, 12, 14, 5],
-    4: [25, 19, 9, 5, 22, 26, 3, 14, 6, 20, 10, 27, 1, 0, 21, 2, 15, 16, 4, 7, 11, 12, 24, 13, 18, 29, 8, 28, 17, 23],
-    5: [19, 18, 16, 14, 22, 15, 6, 1, 2, 25, 4, 12, 11, 28, 7, 5, 13, 9, 24, 10, 20, 8, 29, 26, 3, 23, 21, 0, 27, 17],
-    6: [20, 22, 4, 6, 14, 28, 13, 2, 8, 18, 25, 12, 21, 27, 23, 1, 7, 9, 11, 3, 26, 15, 10, 19, 0, 16, 29, 17, 5, 24],
-    7: [19, 7, 2, 27, 10, 21, 4, 13, 8, 26, 0, 5, 1, 28, 15, 3, 18, 16, 14, 11, 20, 12, 9, 25, 29, 22, 23, 24, 17, 6],
-    8: [22, 0, 13, 18, 5, 26, 25, 11, 9, 27, 3, 19, 14, 24, 12, 23, 20, 4, 17, 6, 15, 21, 8, 29, 16, 28, 10, 1, 2, 7],
-    9: [8, 13, 22, 16, 24, 5, 0, 9, 11, 25, 29, 27, 15, 2, 18, 4, 14, 17, 19, 6, 7, 26, 10, 23, 12, 1, 3, 28, 20, 21],
-    10: [16, 22, 25, 4, 20, 23, 26, 3, 2, 7, 10, 18, 19, 17, 11, 28, 9, 14, 8, 21, 0, 24, 29, 1, 12, 6, 27, 15, 13, 5],
-    11: [26, 10, 8, 17, 21, 4, 19, 6, 14, 0, 11, 13, 3, 9, 22, 12, 7, 27, 20, 23, 2, 24, 28, 5, 25, 16, 15, 18, 29, 1],
-    12: [26, 5, 13, 6, 16, 17, 11, 23, 18, 3, 25, 24, 1, 15, 28, 19, 0, 2, 27, 14, 9, 20, 29, 4, 12, 8, 7, 10, 22, 21],
-    13: [25, 12, 7, 6, 13, 10, 29, 23, 18, 21, 2, 15, 11, 28, 1, 8, 4, 3, 24, 27, 0, 16, 20, 19, 9, 22, 17, 26, 14, 5],
-    14: [12, 16, 3, 23, 7, 19, 18, 25, 9, 21, 24, 15, 6, 11, 17, 14, 5, 22, 4, 10, 0, 26, 29, 13, 20, 2, 1, 27, 28, 8],
-    15: [16, 15, 28, 8, 26, 20, 10, 5, 19, 0, 23, 14, 12, 2, 18, 22, 4, 13, 17, 24, 3, 7, 21, 6, 27, 29, 25, 11, 9, 1],
-    16: [19, 3, 22, 16, 2, 21, 18, 26, 17, 8, 5, 23, 28, 13, 4, 10, 29, 24, 0, 20, 25, 9, 11, 14, 6, 7, 15, 1, 27, 12],
-    17: [15, 7, 9, 4, 2, 24, 18, 22, 5, 21, 14, 20, 0, 17, 25, 29, 8, 6, 12, 28, 16, 27, 26, 10, 23, 11, 13, 19, 3, 1],
-    18: [7, 14, 5, 3, 1, 8, 15, 0, 19, 18, 26, 20, 2, 11, 22, 24, 29, 6, 4, 17, 25, 12, 10, 13, 21, 27, 16, 9, 28, 23],
-    19: [27, 22, 1, 25, 8, 13, 23, 11, 19, 0, 18, 12, 3, 4, 17, 7, 20, 10, 24, 9, 2, 26, 5, 15, 16, 6, 21, 28, 29, 14],
-    20: [26, 11, 9, 19, 23, 25, 6, 17, 10, 2, 18, 1, 28, 8, 21, 14, 16, 5, 24, 13, 3, 0, 20, 4, 7, 27, 15, 12, 29, 22],
-    21: [22, 0, 19, 12, 9, 6, 18, 1, 17, 10, 29, 13, 3, 4, 11, 2, 25, 21, 27, 26, 16, 24, 20, 7, 8, 14, 15, 23, 5, 28],
-    22: [11, 18, 15, 9, 27, 20, 29, 3, 8, 24, 19, 4, 5, 16, 7, 23, 0, 12, 21, 28, 1, 25, 14, 17, 10, 26, 13, 2, 6, 22],
-    23: [8, 22, 13, 16, 26, 9, 3, 20, 15, 11, 7, 2, 6, 28, 1, 18, 24, 0, 17, 19, 4, 14, 5, 23, 29, 25, 27, 21, 10, 12],
-    24: [5, 4, 16, 23, 9, 6, 18, 21, 19, 25, 3, 14, 20, 10, 27, 22, 7, 11, 1, 17, 0, 15, 2, 26, 13, 29, 8, 12, 28, 24],
-    25: [27, 10, 2, 17, 7, 20, 29, 4, 13, 15, 16, 1, 18, 25, 6, 12, 28, 0, 21, 9, 26, 3, 23, 19, 5, 11, 24, 8, 22, 14],
-    26: [22, 8, 1, 5, 28, 9, 12, 4, 14, 6, 24, 18, 7, 23, 26, 25, 19, 3, 15, 27, 0, 10, 20, 16, 2, 29, 21, 13, 17, 11],
-    27: [1, 17, 11, 16, 6, 24, 20, 9, 4, 21, 3, 22, 25, 5, 13, 15, 0, 29, 12, 19, 18, 23, 28, 14, 8, 2, 26, 7, 27, 10],
-    28: [24, 1, 8, 12, 16, 26, 10, 27, 5, 19, 4, 18, 11, 6, 3, 9, 29, 0, 14, 21, 20, 25, 22, 28, 17, 15, 13, 23, 7, 2],
-    29: [20, 0, 19, 18, 2, 13, 15, 1, 12, 24, 25, 27, 4, 23, 29, 16, 21, 5, 17, 28, 10, 6, 3, 7, 26, 9, 8, 14, 22, 11],
+    0: [8, 6, 5, 9, 7],
+    1: [8, 9, 7, 5, 6],
+    2: [9, 8, 5, 7, 6],
+    3: [5, 7, 9, 8, 6],
+    4: [5, 8, 7, 6, 9]
 }
 
-# Single occupancy capacity constraints 
-room = {i: 1 for i in range(30)}
+students_2 = {
+    5: [4, 1, 0, 3, 2],
+    6: [1, 3, 0, 4, 2],
+    7: [2, 1, 0, 3, 4],
+    8: [3, 1, 2, 4, 0],
+    9: [0, 4, 1, 2, 3]
+}
 
-def stable_match(room, students):
+
+def stable_match(students, students_2):
     """ This function takes in the room and student data and 
     returns a stable matching of students to rooms. """
     #Create a dictionary to hold the matches
     matches = {}
-    for student in students:
-        if student not in matches:
-            #Get the student's preferences
-            preferences = students[student]
-            for room in preferences:
-                #Check if the room is available
-                if room not in matches.values():
-                #If the room is available, match the student to the room
-                    matches[student] = room
-                    break
-        else:
-            #If the room is not available, check if the current match prefers this student
-            current_student = [s for s, r in matches.items() if r == room][0]
-            if preferences.index(room) < students[current_student].index(room):
-                #If the current match prefers this student, unmatch them and match the new student
-                del matches[current_student]
-                matches[student] = room
-                break
+    #looks at the data it resives and matches them 
+    while any(student not in matches for student in students):
+            pref = next(student for student in students if student not in matches )
+            act = next(student_2 for student_2 in students[pref])
+            if act not in matches.values():
+                matches[pref] = act
+            elif students_2[act].index(pref) > students_2[act].index(matches.values()):
+                matches.pop(matches[act])
+                matches[pref] = act
+                
+            else:
+                continue
+
     return matches
-def main(room, students) -> None:
-    matches = stable_match(room, students)
+
+def main(students, students_2) -> None:
+    matches = stable_match(students, students_2)
     print("Stable Matching of Students to Rooms:")
     for student, room in matches.items():
         print(f"Student {student} is matched to Room {room}")
 
 
 if __name__ == "__main__":
-	main()
-
+	main(students, students_2)
          
