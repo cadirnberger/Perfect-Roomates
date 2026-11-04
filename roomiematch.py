@@ -1,3 +1,4 @@
+from collections import deque
 # 0-indexed preference matrices for algorithm implementation
 """rank room best to worst"""
 """students = {
@@ -789,41 +790,78 @@ students_2 = {
 def stable_match(students, students_2):
     """ This function takes in the room and student data and 
     returns a stable matching of students to rooms. """
-    #Create a dictionary to hold the matches
-    matches = {}
-    
+def stable_match(students, students_2):
+    """This function takes in the room and student data and
+    returns a stable matching of students to rooms."""
+
+    room_cap = 2
+
+    # a dictionary to hold the matches
+    matches = {room: [] for room in students_2}
+
     attempted_match = {student: 0 for student in students}
     no_match = set()
 
-    #looks at the data it resives and matches them
-    while any(student not in matches and student not in no_match for student in students):
-            pref = next(student for student in students if student not in matches and student not in no_match)
+    room_rank = {
+        room: {student: rank for rank, student in enumerate(pref)}
+        for room, pref in students_2.items()
+    }
 
-            if attempted_match[pref]>= len(students[pref]):
-                 no_match.add(pref)
-                 continue
-            act = students[pref][attempted_match[pref]]
-            attempted_match[pref] +=1
+    # matches students to rooms
+    while any(student not in no_match and
+              student not in [s for room in matches.values() for s in room]
+              for student in students):
 
-            if pref not in students_2.get(act,[]):
-                 continue
-            if act not in matches.values():
-                matches[pref] = act
-            else:
-                cur_student = next(s for s, r in matches.items() if r == act)
-                if students_2[act].index(pref) < students_2[act].index(cur_student):
-                    matches.pop(cur_student)
-                    matches[pref] = act
+        pref = next(
+            student for student in students
+            if student not in no_match
+            and student not in [s for room in matches.values() for s in room]
+        )
 
-    return matches
+        if attempted_match[pref] >= len(students[pref]):
+            no_match.add(pref)
+            continue
+
+        act = students[pref][attempted_match[pref]]
+        attempted_match[pref] += 1
+
+        if act not in matches or pref not in room_rank[act]:
+            continue
+
+        if len(matches[act]) < room_cap:
+            matches[act].append(pref)
+
+        else:
+            current_s = max(
+                matches[act],
+                key=lambda s: room_rank[act][s]
+            )
+
+            if room_rank[act][pref] < room_rank[act][current_s]:
+                matches[act].remove(current_s)
+                matches[act].append(pref)
+
+    s_matches = {}
+
+    for room, room_students in matches.items():
+        for student in room_students:
+            s_matches[student] = room
+
+    return s_matches
+   
 
 def main(students, students_2) -> None:
     matches = stable_match(students, students_2)
     print("Stable Matching of Students to Rooms:")
-    for student in sorted(students):
-         if student in matches:
-              print(f"student {student} matched to room {matches[student]}")
-         else:
+    room_matches = {room: [] for room in students_2}
+    for student, room in matches.items():
+         room_matches[room].append(student)
+
+    for room in sorted(room_matches):
+        if room_matches[room]:
+            print(f"Room{room}: Student {room_matches[room]}")
+    for student in sorted(students):  
+         if student not in matches:
             print(f"student {student} has no match right now")
 
 
