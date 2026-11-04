@@ -15,6 +15,19 @@ students_2 = {
     9: [0, 4, 1, 2, 3]
 }
 
+import random
+
+
+def make_room_prefs(students, seed=0):
+    """Rooms need ranking of students too. synthetic until survey data exists"""
+    rng = random.Random(seed)
+    prefs = {}
+    for r in room:
+        order = list(students)
+        rng.shuffle(order)
+        prefs[r] = order
+    return prefs
+
 
 def stable_match(students, students_2):
     """ This function takes in the room and student data and 
