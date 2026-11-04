@@ -27,10 +27,10 @@ def stable_match(students, students_2):
             prop_to = []
             act = next(student_2 for student_2 in students[pref] if student_2 not in prop_to)
             prop_to.append(act)
-            matched_student = next(matched_student for matched_student, matched_room in matches.items() if matched_room == act)
             if act not in matches.values():
                 matches[pref] = act
             elif students_2[act].index(pref) < students_2[act].index(matched_student):
+                matched_student = next(matched_student for matched_student, matched_room in matches.items() if matched_room == act)
                 matches.pop(matched_student)
                 matches[pref] = act
                 
@@ -41,9 +41,9 @@ def stable_match(students, students_2):
 
 def main(students, students_2) -> None:
     matches = stable_match(students, students_2)
-    print("Stable Matching of Students to Rooms:")
-    for student, room in matches.items():
-        print(f"Student {student} is matched to Room {room}")
+    print("Stable Matching of Students to Students:")
+    for student, student_2 in matches.items():
+        print(f"Student {student} is matched to Student {student_2}")
 
 
 if __name__ == "__main__":
