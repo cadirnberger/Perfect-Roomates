@@ -395,7 +395,7 @@ students = {
 """
 
 """ranked student best to worst """
-"""students_2 = {
+"""rooms = {
     5: [4, 1, 0, 3, 2],
     6: [1, 3, 0, 4, 2],
     7: [2, 1, 0, 3, 4],
@@ -404,7 +404,7 @@ students = {
 }"""
 
 #n=20
-students_2 = {
+rooms = {
     20: [4, 1, 8, 0, 12],
     21: [2, 5, 0, 3, 14],
     22: [1, 7, 0, 3, 11],
@@ -428,7 +428,7 @@ students_2 = {
 }
 
 #n=30
-"""students_2 = {
+"""rooms = {
     30: [14, 3, 22, 7, 18],
     31: [5, 19, 0, 26, 12],
     32: [8, 17, 24, 2, 15],
@@ -463,7 +463,7 @@ students_2 = {
 
 #n=40
 """
-students_2 = {
+rooms = {
     40: [14, 3, 22, 7, 18],
     41: [5, 19, 0, 26, 12],
     42: [8, 17, 24, 2, 15],
@@ -508,7 +508,7 @@ students_2 = {
 
 #n=50
 """
-students_2 = {
+rooms = {
     50: [14, 3, 22, 7, 18],
     51: [5, 19, 0, 26, 12],
     52: [8, 17, 24, 2, 15],
@@ -563,7 +563,7 @@ students_2 = {
 
 #n=60
 """
-students_2 = {
+rooms = {
     60: [14, 3, 22, 7, 18],
     61: [5, 19, 0, 26, 12],
     62: [8, 17, 24, 2, 15],
@@ -628,7 +628,7 @@ students_2 = {
 
 #n=70
 """
-students_2 = {
+rooms = {
     70: [66, 67, 24, 42, 29],
     71: [50, 7, 24, 54, 38],
     72: [19, 50, 13, 37, 34],
@@ -702,7 +702,7 @@ students_2 = {
 }"""
 #n=80
 """
-students_2 = {
+rooms = {
     80: [70, 15, 39, 25, 49],
     81: [64, 57, 71, 66, 47],
     82: [44, 54, 49, 18, 29],
@@ -786,16 +786,19 @@ students_2 = {
 }"""
 
 
-def stable_match(students, students_2):
+def stable_match(students, rooms):
     """ This function takes in the room and student data and 
     returns a stable matching of students to rooms. """
     room_cap = 2
+
     # a dictionary to hold the matches
-    matches = {room: [] for room in students_2}
+    matches = {room: [] for room in rooms}
+
     attempted_match = {student: 0 for student in students}
     no_match = set()
+
     room_rank = {room: {student: rank for rank, student in enumerate(pref)}
-        for room, pref in students_2.items()}
+        for room, pref in rooms.items()}
 
     # matches students to rooms
     while any(student not in no_match and
@@ -817,10 +820,13 @@ def stable_match(students, students_2):
             if room_rank[act][pref] < room_rank[act][current_s]:
                 matches[act].remove(current_s)
                 matches[act].append(pref)
+
     s_matches = {}
+
     for room, room_students in matches.items():
         for student in room_students:
             s_matches[student] = room
+
     return s_matches
    
 def main(students, students_2) -> None:
@@ -829,6 +835,7 @@ def main(students, students_2) -> None:
     room_matches = {room: [] for room in students_2}
     for student, room in matches.items():
          room_matches[room].append(student)
+
     for room in sorted(room_matches):
         if room_matches[room]:
             print(f"Room{room}: Student {room_matches[room]}")
@@ -838,5 +845,5 @@ def main(students, students_2) -> None:
 
 
 if __name__ == "__main__":
-	main(students, students_2)
+	main(students, rooms)
          
