@@ -1,16 +1,14 @@
-from collections import deque
 # 0-indexed preference matrices for algorithm implementation
-"""rank room best to worst"""
-"""students = {
+students = {
     0: [8, 6, 5, 9, 7],
     1: [8, 9, 7, 5, 6],
     2: [9, 8, 5, 7, 6],
     3: [5, 7, 9, 8, 6],
     4: [5, 8, 7, 6, 9]
-}"""
+}
 
 # n = 20
-students = {
+"""students = {
     0: [28, 26, 25, 29, 27],
     1: [28, 29, 27, 25, 26],
     2: [29, 28, 25, 27, 26],
@@ -31,7 +29,7 @@ students = {
     17: [31, 27, 20, 35, 39],
     18: [20, 32, 25, 38, 29],
     19: [34, 28, 21, 37, 30]
-}
+}"""
 
 #n=30
 """"
@@ -395,16 +393,16 @@ students = {
 """
 
 """ranked student best to worst """
-"""rooms = {
+rooms = {
     5: [4, 1, 0, 3, 2],
     6: [1, 3, 0, 4, 2],
     7: [2, 1, 0, 3, 4],
     8: [3, 1, 2, 4, 0],
     9: [0, 4, 1, 2, 3]
-}"""
+}
 
 #n=20
-rooms = {
+"""rooms = {
     20: [4, 1, 8, 0, 12],
     21: [2, 5, 0, 3, 14],
     22: [1, 7, 0, 3, 11],
@@ -425,7 +423,7 @@ rooms = {
     37: [7, 2, 13, 10, 16],
     38: [2, 13, 5, 18, 0],
     39: [7, 10, 14, 1, 5]
-}
+}"""
 
 #n=30
 """rooms = {
@@ -829,10 +827,10 @@ def stable_match(students, rooms):
 
     return s_matches
    
-def main(students, students_2) -> None:
-    matches = stable_match(students, students_2)
+def main(students, rooms) -> None:
+    matches = stable_match(students, rooms)
     print("Stable Matching of Students to Rooms:")
-    room_matches = {room: [] for room in students_2}
+    room_matches = {room: [] for room in rooms}
     for student, room in matches.items():
          room_matches[room].append(student)
 
